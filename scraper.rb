@@ -17,9 +17,16 @@ class Scraper
     @search_text = search_text
   end
 
-  def get_companies
-    results = page_source.search("//table[@id='Main_ResultsGrid']/tr")[1..-1]
+  def companies
     results.collect { |row| row.css('td').collect { |i| i.text } }
+  end
+
+  def num_results
+    results.size
+  end
+
+  def results
+    page_source.search("//table[@id='Main_ResultsGrid']/tr")[1..-1]
   end
 
   def page_source
