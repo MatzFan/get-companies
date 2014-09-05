@@ -1,3 +1,5 @@
+require 'mechanize'
+
 class Scraper
 
   URL = 'https://www.jerseyfsc.org/registry/documentsearch/'
