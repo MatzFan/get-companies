@@ -20,7 +20,9 @@ class Scraper
   end
 
   def company_data
-    id_s.zip(companies).map { |e| e.flatten }
+    id_s.zip(companies).map { |e| e.flatten }.zip(previous_names).map do |e|
+      e.flatten
+    end
   end
 
   def companies
@@ -41,8 +43,8 @@ class Scraper
     end
   end
 
-  def previous_name?(row)
-    row.attr('class') == " previousName"
+  def previous_names
+    results.collect { |row| (row.attr('class') == " previousName").to_s }
   end
 
   def num_results

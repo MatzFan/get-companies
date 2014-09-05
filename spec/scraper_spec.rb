@@ -39,20 +39,18 @@ describe Scraper do
   context "#companies_data" do
     specify "should return list of company data with id (empty for a CP)" do
       expect(Scraper.new(cp_example).company_data[0]).to eq(
-        ["", "103334", "CP", "JERSEY HOMEBUILDERS LIMITED", "12 Mar 2014"])
+        ['', '103334', 'CP', 'JERSEY HOMEBUILDERS LIMITED', '12 Mar 2014', 'false'])
     end
 
     specify "should return list of company data with id (valid for a RBN)" do
       expect(Scraper.new(rbn_example).company_data[0]).to eq(
-        ["119287", "23030", "RBN", "JERSEY HOSTING", "25 Jul 2006"])
+        ['119287', '23030', 'RBN', 'JERSEY HOSTING', '25 Jul 2006', 'false'])
     end
   end
 
-  context "#previous_name?" do
+  context "#previous_names" do
     specify "should return false if the name is current" do
-      s = Scraper.new('jersey hot tubs')
-      expect(s.previous_name?(s.results[0])).to be false
-      expect(s.previous_name?(s.results[1])).to be true
+      expect(Scraper.new('jersey hot tubs').previous_names).to eq(['false', 'true'])
     end
   end
 
