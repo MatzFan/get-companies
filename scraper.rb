@@ -5,6 +5,7 @@ class Scraper
   URL = 'https://www.jerseyfsc.org/registry/documentsearch/'
   CATEGORY_FIELD = 'ctl00$Main$statusCategoryComboBox'
   SEARCH_TYPE_FIELD = 'ctl00$Main$searchTypesComboBox'
+  PREVIOUS_NAMES_FIELD = 'ctl00$Main$previousNamesCheckBox'
   CATEGORIES = {all: '0', active: '2', inactive: '4'}
   TYPE = 'BeginsWith'
   SEARCH_TEXT_FIELD = 'ctl00$Main$txtSearch'
@@ -53,7 +54,8 @@ class Scraper
     form = home_page.form
     form.send(SEARCH_TYPE_FIELD, TYPE)
     form.send(CATEGORY_FIELD, CATEGORIES[:active])
-    form.send(SEARCH_TEXT_FIELD, search_text) # ditto
+    form.send(SEARCH_TEXT_FIELD, search_text)
+    form.send(PREVIOUS_NAMES_FIELD, 'on')
     @agent.submit(form, form.buttons.first)
   end
 
