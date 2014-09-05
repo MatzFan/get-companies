@@ -29,9 +29,7 @@ describe Scraper do
       s = Scraper.new(cp_example)
       expect(s.row_link(s.results[0])).to be nil
     end
-  end
 
-  context "#row_link" do
     specify "should return link id name for a RBN" do
       s = Scraper.new(rbn_example)
       expect(s.row_link(s.results[0])).to eq(Scraper::DELIM + '119287')
@@ -47,6 +45,14 @@ describe Scraper do
     specify "should return list of company data with id (valid for a RBN)" do
       expect(Scraper.new(rbn_example).company_data[0]).to eq(
         ["119287", "23030", "RBN", "JERSEY HOSTING", "25 Jul 2006"])
+    end
+  end
+
+  context "#previous_name?" do
+    specify "should return false if the name is current" do
+      s = Scraper.new('jersey hot tubs')
+      expect(s.previous_name?(s.results[0])).to be false
+      expect(s.previous_name?(s.results[1])).to be true
     end
   end
 

@@ -41,6 +41,10 @@ class Scraper
     end
   end
 
+  def previous_name?(row)
+    row.attr('class') == " previousName"
+  end
+
   def num_results
     results.size
   end
@@ -55,7 +59,7 @@ class Scraper
     form.send(SEARCH_TYPE_FIELD, TYPE)
     form.send(CATEGORY_FIELD, CATEGORIES[:active])
     form.send(SEARCH_TEXT_FIELD, search_text)
-    form.send(PREVIOUS_NAMES_FIELD, 'on')
+    form.add_field!(PREVIOUS_NAMES_FIELD, value = 'on')
     @agent.submit(form, form.buttons.first)
   end
 
