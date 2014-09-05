@@ -6,13 +6,13 @@ describe Scraper do
 
   context "#page_source" do
     specify "should return page source for Scraper's search text" do
-      expect(scraper.page_source).to include('46541">ABACUS INVESTMENTS')
+      expect(scraper.page_source.body).to include('ABACUS & CO</a></td><td>22 Jun 1995')
     end
   end
 
   context "#get_companies" do
     specify "should return a list of companies starting with 'ab'" do
-      expect(scraper.get_companies).to eq([])
+      expect(scraper.get_companies).to include(["15776", "RBN", "ABACUS & CO", "22 Jun 1995"])
     end
   end
 
