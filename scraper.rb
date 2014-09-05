@@ -8,7 +8,7 @@ class Scraper
   CATEGORIES = {all: '0', active: '2', inactive: '4'}
   TYPE = 'BeginsWith'
   SEARCH_TEXT_FIELD = 'ctl00$Main$txtSearch'
-  TABLE = 'Main_ResultsGrid'
+  TABLE_ID = 'Main_ResultsGrid'
 
   attr_reader :agent, :search_text
 
@@ -26,7 +26,7 @@ class Scraper
   end
 
   def results
-    page_source.search("//table[@id='Main_ResultsGrid']/tr")[1..-1]
+    page_source.search("//table[@id='#{TABLE_ID}']/tr")[1..-1]
   end
 
   def page_source
