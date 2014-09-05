@@ -9,6 +9,7 @@ class Scraper
   TYPE = 'BeginsWith'
   SEARCH_TEXT_FIELD = 'ctl00$Main$txtSearch'
   TABLE_ID = 'Main_ResultsGrid'
+  DELIM = 'NameDetail.aspx?Id='
 
   attr_reader :agent, :search_text
 
@@ -17,8 +18,26 @@ class Scraper
     @search_text = search_text
   end
 
+  def company_data
+    id_s.zip(companies).map { |e| e.flatten }
+  end
+
   def companies
     results.collect { |row| row.css('td').collect { |i| i.text } }
+  end
+
+  def id_s
+    results.collect do |row|
+      row_link(row) ? row_link(row).split(DELIM).last : ''
+    end
+  end
+
+  def row_link(row)
+    begin
+      row.css('td')[0].css('a').attribute('href').value
+    rescue
+      nil
+    end
   end
 
   def num_results
