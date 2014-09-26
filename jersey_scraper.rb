@@ -1,6 +1,6 @@
 require 'mechanize'
 
-class Scraper
+class JerseyScraper
 
   URL = 'https://www.jerseyfsc.org/registry/documentsearch/'
   CATEGORY_FIELD = 'ctl00$Main$statusCategoryComboBox'
@@ -26,7 +26,11 @@ class Scraper
   end
 
   def companies
-    results.collect { |row| row.css('td').collect { |i| i.text } }
+    format_date(results.collect { |row| row.css('td').collect { |e| e.text } })
+  end
+
+  def format_date(arr)
+    arr.map! { |e| e = e[0..-2] << Date.parse(e.last).strftime('%d/%m/%Y') }
   end
 
   def id_s
@@ -66,3 +70,6 @@ class Scraper
   end
 
 end
+
+# s = JerseyScraper.new('ab')
+# p s.companies[0]

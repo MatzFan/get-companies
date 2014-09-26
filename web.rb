@@ -1,6 +1,6 @@
 require 'sinatra'
-require_relative './scraper'
+require_relative './jersey_scraper'
 
-get '/' do
-  Scraper.new(params[:text]).company_data.map { |row| row.join('|') }.join("\n")
+get '/jersey' do
+  JerseyScraper.new(params[:text]).company_data.map { |row| row.join('|') }.join("\n")
 end
