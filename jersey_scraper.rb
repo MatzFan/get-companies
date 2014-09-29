@@ -26,10 +26,10 @@ class JerseyScraper
   end
 
   def companies
-    format_date(results.collect { |row| row.css('td').collect { |e| e.text } })
+    datify(results.collect { |r| r.css('td').collect { |e| e.text.strip } })
   end
 
-  def format_date(arr)
+  def datify(arr)
     arr.map! { |e| e = e[0..-2] << Date.parse(e.last).strftime('%d/%m/%Y') }
   end
 
@@ -71,5 +71,6 @@ class JerseyScraper
 
 end
 
-# s = JerseyScraper.new('q&')
-# p s.company_data
+# s = JerseyScraper.new('fo')
+# p s.companies[5]
+
