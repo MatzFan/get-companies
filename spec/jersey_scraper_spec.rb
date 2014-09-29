@@ -22,6 +22,10 @@ describe JerseyScraper do
     specify "should return the number of results found" do
       expect(JerseyScraper.new('a').num_results).to eq(300)
     end
+
+    specify "should return 0 if no results are found" do
+      expect(JerseyScraper.new('q&').num_results).to eq(0)
+    end
   end
 
   context "#row_link" do
@@ -37,6 +41,10 @@ describe JerseyScraper do
   end
 
   context "#companies_data" do
+    specify "should return nothing if no search results are found" do
+      expect(JerseyScraper.new('q&').company_data).to eq([])
+    end
+
     specify "should return list of company data with id (empty for a CP)" do
       expect(JerseyScraper.new(cp_example).company_data[0]).to eq(
         ['', '105919', 'CP', 'ABBVIE GROUP PLC', '09/07/2014', 'false'])

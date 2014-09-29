@@ -56,7 +56,7 @@ class JerseyScraper
   end
 
   def results
-    page_source.search("//table[@id='#{TABLE_ID}']/tr")[1..-1]
+    page_source.search("//table[@id='#{TABLE_ID}']/tr")[1..-1] || [] # if nothing found
   end
 
   def page_source
@@ -71,5 +71,5 @@ class JerseyScraper
 
 end
 
-# s = JerseyScraper.new('ab')
-# p s.companies[0]
+# s = JerseyScraper.new('q&')
+# p s.company_data
